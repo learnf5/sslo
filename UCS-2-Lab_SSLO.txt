@@ -1,0 +1,35 @@
+The following table maps UCS file to End-State for each SSLO Lab.
+
+UCS			Hands-on Lab:
+sslo1_base.ucs		Confirm Provisioning and Network Configuration
+
+sslo1_cert.ucs		Import a Signed Certificate
+
+sslo1_tf_proxy.ucs	Create a Transparent Forward Proxy
+
+sslo1_ef_proxy.ucs	Create an Explicit Forward Proxy
+
+sslo1_ef_proxy.ucs	Stop a service for maintenance
+
+sslo1_gw_proxy.ucs	Create a Gateway Reverse Proxy
+
+sslo1_ex_app.ucs	Create an Existing Application
+
+sslo1_id_comp.ucs	Identify Components
+
+sslo1_ex_app.ucs	Modify Reverse Proxy, Gateway to Application Mode
+
+sslo1_tls13.ucs		Enable and Test TLS v1.3
+
+sslo1_tls13.ucs		Manage a Security Policy
+
+sslo1_app_proxy.ucs	Forward Proxy Authentication
+
+N/A			Troubleshooting
+
+sslo1_base.ucs		Deleting and Cleanup of Configurations
+
+sslo1_ha.ucs		Configure High Availability
+sslo2_ha.ucs
+
+N/A			Create a Deployment and Synchronize HA
