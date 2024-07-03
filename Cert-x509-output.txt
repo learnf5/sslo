@@ -120,3 +120,64 @@ Certificate:
          05:d0:61:fc:2b:04:e3:3e:fc:51:a4:a4:9e:2e:cf:86:62:14:
          f1:ad:97:75
 [root@sslo1:Active:Standalone] certificate_d # 
+[root@sslo1:Active:Standalone] certificate_d # 
+[root@sslo1:Active:Standalone] certificate_d # openssl x509 -in \:Common:WildcardSSLCert_59162_1 -text -noout
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 131 (0x83)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: DC=com, DC=f5trn, CN=f5trn-DC-CA
+        Validity
+            Not Before: Jun  1 23:34:15 2022 GMT
+            Not After : May 29 23:34:15 2032 GMT
+        Subject: C=US, ST=WA, L=Seattle, O=F5, OU=Training, CN=*.f5trn.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:aa:78:a6:35:1f:d5:80:33:67:a3:0d:9b:e5:6b:
+                    ad:ff:b0:e1:6a:ce:0d:e9:1c:5e:c2:f8:0f:e7:54:
+                    d6:29:7e:6c:2a:d9:09:9a:30:91:c6:30:5d:69:7f:
+                    8f:81:d4:da:5e:bf:80:09:aa:cc:ba:d5:29:3d:9f:
+                    ab:5e:8f:e5:9c:a0:01:58:7e:4c:57:df:1f:6d:97:
+                    7c:49:9f:a7:f7:cf:ce:8a:18:d7:80:1c:fa:2a:72:
+                    15:09:38:3e:6a:8f:45:a6:bb:38:a9:cd:06:dc:67:
+                    e6:62:44:01:8e:a3:5c:8e:8e:d0:4b:7b:c4:97:78:
+                    79:01:bd:5b:7e:5f:18:48:77:cb:03:f2:c7:e4:25:
+                    66:a0:b7:fb:1b:3d:7f:82:f9:ef:a1:2a:47:5c:13:
+                    2f:ab:4f:d3:83:e9:0f:1a:73:75:19:55:f7:ac:0b:
+                    bd:8f:b4:b8:00:d0:9f:8e:ba:c4:a3:a7:33:39:26:
+                    84:57:ec:55:04:ce:1b:dc:41:df:75:3a:d7:a8:f9:
+                    3d:81:51:88:84:bb:4b:09:f4:3d:65:f7:ec:68:58:
+                    de:e1:04:f5:cd:43:c2:36:ec:80:cd:8b:6b:79:d0:
+                    70:fd:e3:e8:26:48:7c:78:de:76:c3:e8:fb:e4:7c:
+                    78:10:0b:07:dd:a8:63:cb:03:b8:39:7c:55:2d:f5:
+                    c5:63
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication, Code Signing, E-mail Protection
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Non Repudiation, Key Encipherment
+            X509v3 Subject Alternative Name: 
+                DNS:*.f5trn.com
+    Signature Algorithm: sha256WithRSAEncryption
+         bb:62:8b:e5:f9:ed:81:98:13:44:cb:b8:26:3b:d0:bc:00:67:
+         57:16:09:01:26:d7:cb:7f:5b:b9:e4:c3:b5:0f:cc:ae:f1:1b:
+         ae:44:20:71:79:33:04:36:fa:56:6c:78:94:dd:be:90:81:8a:
+         d9:00:53:7a:3b:45:73:07:bd:ab:e2:26:a4:eb:1d:d9:e8:5b:
+         2e:bf:ce:a4:f1:ae:cf:41:1b:40:cf:44:3c:59:1c:c6:38:92:
+         e1:2c:9d:1e:3a:f3:af:cf:33:14:27:b2:4b:cf:a7:da:77:82:
+         a0:81:a1:9e:d0:3f:9c:ad:8a:84:ad:9e:99:0f:ba:43:b0:8d:
+         e6:7d:ea:30:0c:6e:78:98:83:c2:62:43:9c:59:0a:97:ee:c0:
+         9d:ca:04:a3:45:b1:e4:c5:34:4a:2f:75:52:bb:7b:d9:74:a4:
+         68:4e:85:af:62:88:7b:e5:4f:13:71:91:64:b7:94:d4:56:9d:
+         2d:26:ba:e9:61:75:2d:1f:15:e3:61:a5:47:d5:e5:2f:b4:00:
+         92:4b:a9:a9:da:44:c3:bc:b2:ed:54:05:f7:64:e6:f7:ea:da:
+         55:6b:c9:47:63:fd:f2:0c:a9:c3:82:3f:50:bd:ca:4e:c1:63:
+         6b:bb:09:10:22:a3:37:57:5b:ab:ce:6f:a8:92:10:35:f0:22:
+         70:a6:84:a3
+[root@sslo1:Active:Standalone] certificate_d # 
