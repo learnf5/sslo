@@ -1,0 +1,335 @@
+student@jump:~$ ssh root@192.168.1.31
+The authenticity of host '192.168.1.31 (192.168.1.31)' can't be established.
+ED25519 key fingerprint is SHA256:H9Xv1YVvOqem8ajwD+muSC3OEJb8YgJhJJtmS1hGIuk.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.1.31' (ED25519) to the list of known hosts.
+(root@192.168.1.31) Password: 
+Last login: Fri Nov  4 09:58:03 2022 from 10.10.2.30
+[root@sslo1:Active:Standalone] config # 
+[root@sslo1:Active:Standalone] config # 
+[root@sslo1:Active:Standalone] config # PS1="bash1# "
+bash1# 
+bash1# mkdir /tmp/cert
+bash1# cd /tmp/cert/
+bash1# 
+bash1# 
+bash1# openssl rand -out random1 2048
+bash1# 
+bash1# openssl genrsa -rand random1 -out ca-f5trn-com.key 2048
+2048 semi-random bytes loaded
+Generating RSA private key, 2048 bit long modulus
+.+++++
+......................................+++++
+e is 65537 (0x10001)
+bash1# 
+bash1# 
+bash1# 
+bash1# openssl req -x509 -new -key ca-f5trn-com.key -out ca-f5trn-com.crt -days 3650
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:US
+State or Province Name (full name) []:WA
+Locality Name (eg, city) [Default City]:Seattle
+Organization Name (eg, company) [Default Company Ltd]:F5, inc.
+Organizational Unit Name (eg, section) []:Global Services Education
+Common Name (eg, your name or your server's hostname) []:ca.f5trn.com
+Email Address []:
+bash1# 
+bash1# 
+bash1# openssl rand -out random2 2048
+bash1# 
+bash1# openssl genrsa -rand random2 -out wildcard-f5trn-com.key 2048
+2048 semi-random bytes loaded
+Generating RSA private key, 2048 bit long modulus
+............................+++++
+......+++++
+e is 65537 (0x10001)
+bash1# 
+bash1# 
+bash1# openssl req -new -out wildcard-f5trn-com.req -key wildcard-f5trn-com.key
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:US
+State or Province Name (full name) []:WA
+Locality Name (eg, city) [Default City]:Seattle
+Organization Name (eg, company) [Default Company Ltd]:F5, Inc.
+Organizational Unit Name (eg, section) []:Global Services Education
+Common Name (eg, your name or your server's hostname) []:*.f5trn.com
+Email Address []:
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:f5trn1
+An optional company name []:
+bash1# 
+bash1#
+bash1# 
+bash1# openssl x509 -req -in wildcard-f5trn-com.req -out wildcard-f5trn-com.crt -CAkey ca-f5trn-com.key -CA ca-f5trn-com.crt -days 3650 -CAcreateserial -CAserial serial
+Signature ok
+subject=/C=US/ST=WA/L=Seattle/O=F5, Inc./OU=Global Services Education/CN=*.f5trn.com
+Getting CA Private Key
+bash1# 
+bash1# 
+bash1# ls -la
+total 29
+drwxr-xr-x.  2 root root 1024 Jul  2 08:30 .
+drwxrwxrwt. 13 root root 3072 Jul  2 08:16 ..
+-rw-r--r--.  1 root root 1371 Jul  2 08:07 ca-f5trn-com.crt
+-rw-r--r--.  1 root root 1675 Jul  2 08:05 ca-f5trn-com.key
+-rw-r--r--.  1 root root 2048 Jul  2 08:04 random1
+-rw-r--r--.  1 root root 2048 Jul  2 08:09 random2
+-rw-r--r--.  1 root root   17 Jul  2 08:30 serial
+-rw-r--r--.  1 root root 1253 Jul  2 08:30 wildcard-f5trn-com.crt
+-rw-r--r--.  1 root root 1679 Jul  2 08:10 wildcard-f5trn-com.key
+-rw-r--r--.  1 root root 1058 Jul  2 08:12 wildcard-f5trn-com.req
+bash1# 
+bash1# 
+bash1# tmsh
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# install sys crypto key ca-f5trn-com.key fr
+Options:
+  from-editor       from-nethsm       
+Properties:
+  from-local-file   from-url          
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# q
+bash1# pwd 
+/tmp/cert
+bash1# 
+bash1# 
+bash1# tmsh
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# install sys crypto key ca-f5trn-com.key from-local-file ca
+Values:
+  [enter value]
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# install sys crypto key ca-f5trn-com.key from-local-file ca-f5trn-com.key
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# 
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# 
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# install sys crypto cert ca-f5trn-com.crt from-local-file ca-f5trn-com.crt
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# 
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# install sys crypto key wildcard-f5trn-com.key from-local-file wildcard-f5trn-com.key
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# 
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# install sys crypto cert wildcard-f5trn-com.crt from-local-file wildcard-f5trn-com.crt
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# 
+root@(sslo1)(cfg-sync Standalone)(Active)(/Common)(tmos)# q
+bash1# ls
+ca-f5trn-com.crt  random1  serial                  wildcard-f5trn-com.key
+ca-f5trn-com.key  random2  wildcard-f5trn-com.crt  wildcard-f5trn-com.req
+bash1# 
+bash1# 
+bash1# openssl pkcs12 -export -in ca-f5trn-com.crt -inkey ca-f5trn-com.key -out ca-f5trn-com.p12 -name "f5trn CA"
+Enter Export Password:
+Verifying - Enter Export Password:
+bash1# 
+bash1# 
+bash1# ls
+ca-f5trn-com.crt  ca-f5trn-com.p12  random2  wildcard-f5trn-com.crt  wildcard-f5trn-com.req
+ca-f5trn-com.key  random1           serial   wildcard-f5trn-com.key
+bash1# exit
+logout
+Connection to 192.168.1.31 closed.
+student@jump:~$ scp root@192.168.1.31:/tmp/cert/ca-f5trn-com.p12 .
+(root@192.168.1.31) Password: 
+ca-f5trn-com.p12                                                                     100% 2638     1.4MB/s   00:00    
+student@jump:~$ 
+student@jump:~$ 
+student@jump:~$ ls
+ca-f5trn-com.p12  Desktop  Documents  Downloads  LOD  snap
+student@jump:~$ pwd
+/home/student
+student@jump:~$ scp root@192.168.1.31:/tmp/cert/ca-f5trn-com.crt .
+(root@192.168.1.31) Password: 
+(root@192.168.1.31) Password: 
+ca-f5trn-com.crt                                                                     100% 1371   700.7KB/s   00:00    
+student@jump:~$ 
+student@jump:~$ 
+student@jump:~$ 
+student@jump:~$ ssh root@192.168.1.31
+(root@192.168.1.31) Password: 
+Last login: Tue Jul  2 08:03:13 2024 from 192.168.1.30
+[root@sslo1:Active:Standalone] config # 
+[root@sslo1:Active:Standalone] config # 
+[root@sslo1:Active:Standalone] config # cd filestore/files_d/Common_d/certificate_d
+[root@sslo1:Active:Standalone] certificate_d # 
+[root@sslo1:Active:Standalone] certificate_d # 
+[root@sslo1:Active:Standalone] certificate_d # ls -l
+total 20
+lrwxrwxrwx. 1 root root     33 Jul  2 07:50 :Common:ca-bundle.crt_31691_1 -> /config/ssl/ssl.crt/ca-bundle.crt
+lrwxrwxrwx. 1 root root     33 Jul  2 07:50 :Common:ca-bundle.crt_31981_1 -> /config/ssl/ssl.crt/ca-bundle.crt
+lrwxrwxrwx. 1 root root     33 Jul  2 07:50 :Common:ca-bundle.crt_31988_1 -> /config/ssl/ssl.crt/ca-bundle.crt
+lrwxrwxrwx. 1 root root     33 Jul  2 07:50 :Common:ca-bundle.crt_32270_1 -> /config/ssl/ssl.crt/ca-bundle.crt
+lrwxrwxrwx. 1 root root     33 Jul  2 07:31 :Common:ca-bundle.crt_32337_1 -> /config/ssl/ssl.crt/ca-bundle.crt
+-rw-r--r--. 1 root root   1371 Jul  2 08:33 :Common:ca-f5trn-com.crt_59145_1
+lrwxrwxrwx. 1 root root     31 Jul  2 07:50 :Common:default.crt_31689_1 -> /config/ssl/ssl.crt/default.crt
+lrwxrwxrwx. 1 root root     31 Jul  2 07:50 :Common:default.crt_31979_1 -> /config/ssl/ssl.crt/default.crt
+lrwxrwxrwx. 1 root root     31 Jul  2 07:50 :Common:default.crt_31986_1 -> /config/ssl/ssl.crt/default.crt
+lrwxrwxrwx. 1 root root     31 Jul  2 07:50 :Common:default.crt_32268_1 -> /config/ssl/ssl.crt/default.crt
+lrwxrwxrwx. 1 root root     31 Jul  2 07:31 :Common:default.crt_32335_1 -> /config/ssl/ssl.crt/default.crt
+-rw-r--r--. 1 root root   2029 Jun 23  2022 :Common:f5_api_com.crt_101842_1
+-rw-r--r--. 1 root root   2029 Mar 11  2021 :Common:f5_api_com.crt_98891_1
+lrwxrwxrwx. 1 root root     36 Jul  2 07:50 :Common:f5-ca-bundle.crt_31687_1 -> /config/ssl/ssl.crt/f5-ca-bundle.crt
+lrwxrwxrwx. 1 root root     36 Jul  2 07:50 :Common:f5-ca-bundle.crt_31977_1 -> /config/ssl/ssl.crt/f5-ca-bundle.crt
+lrwxrwxrwx. 1 root root     36 Jul  2 07:50 :Common:f5-ca-bundle.crt_31984_1 -> /config/ssl/ssl.crt/f5-ca-bundle.crt
+lrwxrwxrwx. 1 root root     36 Jul  2 07:50 :Common:f5-ca-bundle.crt_32266_1 -> /config/ssl/ssl.crt/f5-ca-bundle.crt
+lrwxrwxrwx. 1 root root     36 Jul  2 07:31 :Common:f5-ca-bundle.crt_32333_1 -> /config/ssl/ssl.crt/f5-ca-bundle.crt
+lrwxrwxrwx. 1 root root     32 Jul  2 07:50 :Common:f5-irule.crt_31685_1 -> /config/ssl/ssl.crt/f5-irule.crt
+lrwxrwxrwx. 1 root root     32 Jul  2 07:50 :Common:f5-irule.crt_31975_1 -> /config/ssl/ssl.crt/f5-irule.crt
+lrwxrwxrwx. 1 root root     32 Jul  2 07:50 :Common:f5-irule.crt_31982_1 -> /config/ssl/ssl.crt/f5-irule.crt
+lrwxrwxrwx. 1 root root     32 Jul  2 07:50 :Common:f5-irule.crt_32264_1 -> /config/ssl/ssl.crt/f5-irule.crt
+lrwxrwxrwx. 1 root root     32 Jul  2 07:31 :Common:f5-irule.crt_32331_1 -> /config/ssl/ssl.crt/f5-irule.crt
+-rw-r--r--. 1 root apache 1281 Sep 30  2022 :Common:RootCertAndKey_124738_1
+-rw-r--r--. 1 root root   1253 Jul  2 08:35 :Common:wildcard-f5trn-com.crt_59154_1
+[root@sslo1:Active:Standalone] certificate_d # 
+[root@sslo1:Active:Standalone] certificate_d # openssl x509 -in \:Common:RootCertAndKey_124738_1
+-----BEGIN CERTIFICATE-----
+MIIDhDCCAmygAwIBAgIQXLgvGz/0i4lJ2hHkE22GnzANBgkqhkiG9w0BAQUFADBC
+MRMwEQYKCZImiZPyLGQBGRYDY29tMRUwEwYKCZImiZPyLGQBGRYFZjV0cm4xFDAS
+BgNVBAMTC2Y1dHJuLURDLUNBMB4XDTE3MDUwNDA0MjIxNVoXDTI0MDczMTEwMzkx
+M1owQjETMBEGCgmSJomT8ixkARkWA2NvbTEVMBMGCgmSJomT8ixkARkWBWY1dHJu
+MRQwEgYDVQQDEwtmNXRybi1EQy1DQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAJ0Kts7eY5bbKu2WPXjf0J8vqFCrbboxoVCugcGbl/uH2YjAMZn42DSK
+BMHT8BkMm8B5basNW6rzuF37Z1z0zbd0CWj0QS7nkHXb9Bpbw3mgfewiVcUIfYmO
+qTFx1DWx6whCTtwxdYk7pmhxIDosKH1no4mDcJ7R5wrPPIJKF3otSun9ykAcaN1v
+X2qWfCaUFo7h/XZzF64dS+kT94zhVeBnLARSi6V00pJG+BfhlVr8IDlcycmPQutl
+Z9VXqgy7sbxUba+khSAKcpRYtXIeds0fyZ7K1PRGHDxJ3HTebzf01BKRpJD7Z8JW
+f3XUGUOlVE3ncB5L6lUQo92TDKt7MosCAwEAAaN2MHQwCwYDVR0PBAQDAgGGMA8G
+A1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFDuNuMXQfmnimw3ZARQu1+TiOu/8MBAG
+CSsGAQQBgjcVAQQDAgEBMCMGCSsGAQQBgjcVAgQWBBQoY740+hZ3R6zvzPdvntaf
+PXFYEDANBgkqhkiG9w0BAQUFAAOCAQEAlf90Z+fxgxZKtdaaXiFoekZimJCKPmmc
+zeNWoNSvohE7+7YTDgAwDuKkruvk24S5dajMiHrdijmzlrb0ZpctcjXCfy2c0lq9
+24zZktEcTw3stgblbP2HQOtlDs8oOKU+t/ldbxZP+ZveaDDml95zgFgLhmRoXQGT
+An151aPK076Fk9+s0ZX4vKv0znvUFKH5q1LMaiRAFjIOst2fX7IiGVrUpy9j7AWk
+nG5LyVn3hP6q1kMV4ZtF3AxZyjHQSG5rgN3paDQnw6+vguo65kTbmCIKnWJ7fitZ
+ryJkMD7SpBMTvflnJow/kHMa3OXOWBLTvjrmuLoX+sARIagnJKTLOQ==
+-----END CERTIFICATE-----
+[root@sslo1:Active:Standalone] certificate_d # openssl x509 -in \:Common:RootCertAndKey_124738_1 -text -noout
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            5c:b8:2f:1b:3f:f4:8b:89:49:da:11:e4:13:6d:86:9f
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: DC=com, DC=f5trn, CN=f5trn-DC-CA
+        Validity
+            Not Before: May  4 04:22:15 2017 GMT
+            Not After : Jul 31 10:39:13 2024 GMT
+        Subject: DC=com, DC=f5trn, CN=f5trn-DC-CA
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:9d:0a:b6:ce:de:63:96:db:2a:ed:96:3d:78:df:
+                    d0:9f:2f:a8:50:ab:6d:ba:31:a1:50:ae:81:c1:9b:
+                    97:fb:87:d9:88:c0:31:99:f8:d8:34:8a:04:c1:d3:
+                    f0:19:0c:9b:c0:79:6d:ab:0d:5b:aa:f3:b8:5d:fb:
+                    67:5c:f4:cd:b7:74:09:68:f4:41:2e:e7:90:75:db:
+                    f4:1a:5b:c3:79:a0:7d:ec:22:55:c5:08:7d:89:8e:
+                    a9:31:71:d4:35:b1:eb:08:42:4e:dc:31:75:89:3b:
+                    a6:68:71:20:3a:2c:28:7d:67:a3:89:83:70:9e:d1:
+                    e7:0a:cf:3c:82:4a:17:7a:2d:4a:e9:fd:ca:40:1c:
+                    68:dd:6f:5f:6a:96:7c:26:94:16:8e:e1:fd:76:73:
+                    17:ae:1d:4b:e9:13:f7:8c:e1:55:e0:67:2c:04:52:
+                    8b:a5:74:d2:92:46:f8:17:e1:95:5a:fc:20:39:5c:
+                    c9:c9:8f:42:eb:65:67:d5:57:aa:0c:bb:b1:bc:54:
+                    6d:af:a4:85:20:0a:72:94:58:b5:72:1e:76:cd:1f:
+                    c9:9e:ca:d4:f4:46:1c:3c:49:dc:74:de:6f:37:f4:
+                    d4:12:91:a4:90:fb:67:c2:56:7f:75:d4:19:43:a5:
+                    54:4d:e7:70:1e:4b:ea:55:10:a3:dd:93:0c:ab:7b:
+                    32:8b
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Key Usage: 
+                Digital Signature, Certificate Sign, CRL Sign
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Subject Key Identifier: 
+                3B:8D:B8:C5:D0:7E:69:E2:9B:0D:D9:01:14:2E:D7:E4:E2:3A:EF:FC
+            1.3.6.1.4.1.311.21.1: 
+                ...
+            1.3.6.1.4.1.311.21.2: 
+                ..(c.4..wG....o...=qX.
+    Signature Algorithm: sha1WithRSAEncryption
+         95:ff:74:67:e7:f1:83:16:4a:b5:d6:9a:5e:21:68:7a:46:62:
+         98:90:8a:3e:69:9c:cd:e3:56:a0:d4:af:a2:11:3b:fb:b6:13:
+         0e:00:30:0e:e2:a4:ae:eb:e4:db:84:b9:75:a8:cc:88:7a:dd:
+         8a:39:b3:96:b6:f4:66:97:2d:72:35:c2:7f:2d:9c:d2:5a:bd:
+         db:8c:d9:92:d1:1c:4f:0d:ec:b6:06:e5:6c:fd:87:40:eb:65:
+         0e:cf:28:38:a5:3e:b7:f9:5d:6f:16:4f:f9:9b:de:68:30:e6:
+         97:de:73:80:58:0b:86:64:68:5d:01:93:02:7d:79:d5:a3:ca:
+         d3:be:85:93:df:ac:d1:95:f8:bc:ab:f4:ce:7b:d4:14:a1:f9:
+         ab:52:cc:6a:24:40:16:32:0e:b2:dd:9f:5f:b2:22:19:5a:d4:
+         a7:2f:63:ec:05:a4:9c:6e:4b:c9:59:f7:84:fe:aa:d6:43:15:
+         e1:9b:45:dc:0c:59:ca:31:d0:48:6e:6b:80:dd:e9:68:34:27:
+         c3:af:af:82:ea:3a:e6:44:db:98:22:0a:9d:62:7b:7e:2b:59:
+         af:22:64:30:3e:d2:a4:13:13:bd:f9:67:26:8c:3f:90:73:1a:
+         dc:e5:ce:58:12:d3:be:3a:e6:b8:ba:17:fa:c0:11:21:a8:27:
+         24:a4:cb:39
+[root@sslo1:Active:Standalone] certificate_d # openssl x509 -in \:Common:ca-f5trn-com.crt_59145_1 -text -noout
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            ab:e4:d8:03:d9:3a:33:ab
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=US, ST=WA, L=Seattle, O=F5, inc., OU=Global Services Education, CN=ca.f5trn.com
+        Validity
+            Not Before: Jul  2 15:07:19 2024 GMT
+            Not After : Jun 30 15:07:19 2034 GMT
+        Subject: C=US, ST=WA, L=Seattle, O=F5, inc., OU=Global Services Education, CN=ca.f5trn.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:b6:f5:30:b8:8c:42:c6:66:a7:3d:60:14:5f:43:
+                    49:3e:54:f4:fc:75:69:db:8c:8c:d3:49:41:c7:eb:
+                    33:01:17:9b:e6:9f:1f:1a:89:95:0e:f9:4b:69:2a:
+                    94:17:ab:63:1f:c1:cc:40:88:47:9a:34:4d:aa:d0:
+                    70:6d:1c:35:6d:be:38:cc:f6:7a:b8:7a:c8:a9:69:
+                    85:f9:2c:40:8e:9e:e7:94:ba:5d:83:b3:a6:2b:85:
+                    b0:f6:54:c6:e4:36:c4:f6:72:16:95:c5:c3:d2:5c:
+                    31:1c:9d:cf:20:af:fe:c8:9c:82:e3:85:e5:62:4b:
+                    ae:49:3e:ee:b3:78:45:c2:ed:b1:16:56:d3:e7:cb:
+                    00:52:d9:c1:2e:a2:79:df:e4:42:92:43:ea:36:e4:
+                    d7:9d:4c:e7:4a:b9:62:e7:66:d7:f7:89:be:ee:2a:
+                    ad:5e:0f:4d:84:3a:e5:8e:21:cb:0a:db:5f:97:82:
+                    88:e9:87:b3:57:e5:b5:7b:f6:b1:c7:f9:f4:ea:95:
+                    ae:65:1f:2a:59:88:8a:69:c6:b4:9f:14:00:10:57:
+                    95:2f:48:83:06:e9:0f:38:ca:df:65:3c:3b:e0:b2:
+                    61:72:28:50:ab:38:01:67:b8:a0:00:b2:20:cd:bc:
+                    49:0a:f0:7c:0f:ee:a6:9d:3e:67:ad:fc:1d:2b:22:
+                    0a:37
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                3A:A5:37:9F:55:4C:80:1A:E1:52:5B:BA:C8:C5:B2:FC:21:97:A4:41
+            X509v3 Authority Key Identifier: 
+                keyid:3A:A5:37:9F:55:4C:80:1A:E1:52:5B:BA:C8:C5:B2:FC:21:97:A4:41
+
+            X509v3 Basic Constraints: 
+                CA:TRUE
+    Signature Algorithm: sha256WithRSAEncryption
+         07:54:86:93:27:ed:94:03:89:fd:22:f1:f0:5b:9d:e9:34:ba:
+         27:a0:c6:20:1b:bd:cd:7b:69:55:2d:0d:1d:c5:fe:a6:4d:ce:
+         58:dd:34:7d:03:6a:35:e9:b8:61:8e:ba:51:80:28:1d:4f:80:
+         dc:ee:4e:97:3e:49:e9:18:64:33:aa:92:4f:10:1d:d9:75:13:
+         95:75:07:93:93:4b:a8:04:b0:de:57:cd:65:a8:30:66:68:c3:
+         a8:2b:59:96:37:b2:6f:41:0e:4a:8b:7b:2a:9d:cd:d4:91:8b:
+         33:b6:ed:96:16:32:23:37:9f:4f:18:58:bf:3f:9a:c6:65:2c:
+         72:bb:16:c6:6a:91:e0:b9:d7:e8:de:7f:e3:1f:30:63:6e:30:
+         f9:fc:b8:a9:f0:95:df:59:c7:42:a6:c5:dc:3a:c0:89:90:bb:
+         1a:f5:4a:fb:bc:0f:90:f8:29:aa:f8:b9:e0:20:7b:6f:82:86:
+         63:ba:3b:05:36:11:9a:ac:9b:29:cb:27:68:80:18:b8:af:90:
+         02:e4:50:77:91:d7:6c:fd:2f:96:be:86:18:78:6d:4a:c1:1d:
+         b6:4f:48:b0:76:f5:a6:94:58:d0:fb:be:b7:b3:16:2a:1e:29:
+         05:d0:61:fc:2b:04:e3:3e:fc:51:a4:a4:9e:2e:cf:86:62:14:
+         f1:ad:97:75
+[root@sslo1:Active:Standalone] certificate_d # 
+
