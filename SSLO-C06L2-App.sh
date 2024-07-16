@@ -15,7 +15,7 @@ sudo scp /tmp/$ucs 192.168.1.31:/var/local/ucs
 sudo ssh 192.168.1.31 tmsh load sys ucs $ucs
 
 # update Student Workstation
-touch /tmp/lab5.1
+touch /tmp/lab6.2
 sudo ip route change default via 172.16.1.33
 
 # confirm bigip1 is active
