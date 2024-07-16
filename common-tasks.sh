@@ -18,6 +18,7 @@ PS4='+$(date +"%T.%3N"): '
 
 # common files for all labs
 mkdir Desktop/Lab_Files
+sudo rm Downloads/*.crt
 
 # run this lab's specific tasks saved on GitHub
 curl --silent --output /tmp/$LAB_ID.sh https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/$LAB_ID.sh
