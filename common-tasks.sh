@@ -17,6 +17,7 @@ PS4='+$(date +"%T.%3N"): '
 #chmod +x /home/student/Desktop/Lab_Guide.desktop
 
 # common files for all labs
+touch /tmp/damian.txt
 
 # run this lab's specific tasks saved on GitHub
 curl --silent --output /tmp/$LAB_ID.sh https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/$LAB_ID.sh
