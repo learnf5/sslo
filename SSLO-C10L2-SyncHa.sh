@@ -15,11 +15,11 @@ for i in {1..30}; do [ "$(sudo ssh root@192.168.2.31 cat /var/prompt/ps1)" = "Ac
 
 #prepare sslo1
 sudo scp /tmp/$ucs1 192.168.1.31:/var/local/ucs
-sudo ssh 192.168.1.31 tmsh load sys ucs $ucs1
+sudo ssh 192.168.1.31 tmsh load sys ucs $ucs1 no-license
 
 #prepare sslo2
-sudo scp /tmp/$ucs2 192.168.1.31:/var/local/ucs
-sudo ssh 192.168.1.31 tmsh load sys ucs $ucs2
+sudo scp /tmp/$ucs2 192.168.2.31:/var/local/ucs
+sudo ssh 192.168.2.31 tmsh load sys ucs $ucs2 no-license
 
 # update Student Workstation
 touch /tmp/lab10.1
