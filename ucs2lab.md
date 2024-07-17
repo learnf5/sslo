@@ -1,7 +1,7 @@
 The following table maps UCS file Loading and End-State for each SSLO Lab.
 
-|:-----|:-----|:-----|:----|
 |Lab#|Lab Name|UCS Load|UCS End|
+|:-----|:-----|:-----|:----|
 |1.1|Confirm Provisioning and Network Configuration|sslo1_base.ucs|sslo1_sys_check.ucs|
 |2.1|Import a Signed Certificate|sslo1_base.ucs|sslo1_cert.ucs|
 |4.1|Create a Transparent Forward Proxy|sslo1_cert.ucs|sslo1_tf_proxy.ucs|
