@@ -23,6 +23,7 @@ for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Ac
 
 # merge in swg_profile configs
 sudo ssh 192.168.1.31 tmsh load sys config merge file $scf
+sudo ssh 192.168.1.31 tmsh modify /apm profile access SWG_Profile generation-action increment
 sudo ssh 192.168.1.31 tmsh save sys config
 #sudo ssh 192.168.1.31 reboot
 
