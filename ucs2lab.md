@@ -10,8 +10,8 @@ The following table maps UCS file Loading and End-State for each SSLO Lab.
 |6.1|Create a Gateway Reverse Proxy|sslo1_ef_proxy.ucs|sslo1_gw_proxy.ucs|
 |6.2|Create an Existing Application|sslo1_gw_proxy.ucs|sslo1_ex_app.ucs|
 |7.1|Identify Components|sslo1_ex_app.ucs|sslo1_id_comp.ucs|
-|7.2|Create Application Reverse Proxy|sslo1_id_comp.ucs|sslo1_app_proxy.ucs|
-|7.3|Enable and Test TLS v1.3|sslo1_app_proxy.ucs|sslo1_tls13.ucs|
+|7.2|Create Application Reverse Proxy|sslo1_id_comp.ucs|sslo1_in_app.ucs|
+|7.3|Enable and Test TLS v1.3|sslo1_in_app.ucs|sslo1_tls13.ucs|
 |8.1|Manage a Security Policy|sslo1_tls13.uc|sslo1_tls13.ucs|
 |8.2|Forward Proxy Authentication|sslo1_tls13.ucs|sslo1_proxy_auth.ucs|
 |9.1|Troubleshooting|sslo1_tls13.ucs|N/A|
