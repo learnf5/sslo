@@ -1,5 +1,5 @@
 # enable debugging
-set -x
+#set -x
 PS4='+$(date +"%T.%3N"): '
 
 # create a desktop shortcut / install lab guide
