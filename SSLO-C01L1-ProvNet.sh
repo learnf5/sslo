@@ -1,5 +1,5 @@
 # enable debugging
-set -x
+#set -x
 PS4='+$(date +"%T.%3N"): '
 
 # confirm bigip1 is active
@@ -11,4 +11,4 @@ touch /tmp/lab1.txt
 # NOTHING specific for this lab - only the common lab files from common-tasks.sh
 
 # disable debugging
-set +x
+#set +x
