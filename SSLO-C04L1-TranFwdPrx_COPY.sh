@@ -1,5 +1,5 @@
 # enable debugging
-#set -x
+set -x
 PS4='+$(date +"%T.%3N"): '
 
 #Download needed files
@@ -8,6 +8,7 @@ curl --silent https://raw.githubusercontent.com/learnf5/sslo/main/certs/RootCert
 curl --silent https://raw.githubusercontent.com/learnf5/sslo/main/ucs/$ucs     --output /tmp/$ucs
 
 # confirm sslo1 is active
+sleep 10
 for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
 
 #prepare sslo1
@@ -20,6 +21,7 @@ sudo ssh 192.168.1.31 tmsh save /sys config
 touch /tmp/lab4.1
 
 # confirm bigip1 is active
+sleep 10
 for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
 
 # disable debugging
