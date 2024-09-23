@@ -1,5 +1,5 @@
 # enable debugging
-#set -x
+set -x
 PS4='+$(date +"%T.%3N"): '
 
 # create a desktop shortcut / install lab guide
@@ -22,11 +22,11 @@ sudo rm Downloads/*.crt
 
 # run this lab's specific tasks saved on GitHub
 curl --silent --output /tmp/$LAB_ID.sh https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/$LAB_ID.sh
-#bash -x /tmp/$LAB_ID.sh
-bash /tmp/$LAB_ID.sh
+bash -x /tmp/$LAB_ID.sh
+#bash /tmp/$LAB_ID.sh
 
 # common changes to jump VM
 sudo ip route change default via 172.16.1.33
 
 # disable debugging
-#set +x
+set +x
