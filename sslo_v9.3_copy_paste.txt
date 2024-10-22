@@ -28,26 +28,26 @@ sudo ip route change default via 172.16.1.33
 
 Step #14d
 
-tcpdump -nni icap_VLAN –Xs0
+tcpdump -nni icap_VLAN -Xs0
 
 Step #14d (option to more quickly see unencrypted traffic)
 
-tcpdump -nni icap_VLAN –Xs0 | grep GET
+tcpdump -nni icap_VLAN -Xs0 | grep GET
 
 
 
 Chapter #5 - Lab 1
 Step #13b(ii)
 
-curl -vk –proxy 172.16.1.150:3128 https://www.f5.com
+curl -vk -proxy 172.16.1.150:3128 https://www.f5.com
 
 Step #13c
 
-tcpdump -nni ssloN_IPS_in.app/ssloN_IPS_in –Xs0
+tcpdump -nni ssloN_IPS_in.app/ssloN_IPS_in -Xs0
 
 Step #13d
 
-tcpdump -nni ssloN_IPS_in.app/ssloN_IPS_in –Xs0 –w /var/tmp/ips_in.cap
+tcpdump -nni ssloN_IPS_in.app/ssloN_IPS_in -Xs0 -w /var/tmp/ips_in.cap
 
 Step #13e
 
@@ -58,38 +58,38 @@ tcpdump -Xs0 -nr /var/tmp/ips_in.cap | grep citi.com
 Chapter #5 - Lab 2
 Step #3b
 
-tcpdump -nni icap_VLAN –Xs0
-tcpdump -nni ssloN_Proxy_in.app/ssloN_Proxy_in –Xs0
+tcpdump -nni icap_VLAN -Xs0
+tcpdump -nni ssloN_Proxy_in.app/ssloN_Proxy_in -Xs0
 
 
 
 Chapter #6 - Lab 2
 Step #10b
 
-tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in –Xs0
+tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in -Xs0
 
 Step #10d
 
-tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in –Xs0 | grep GET
+tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in -Xs0 | grep GET
 
 
 
 Chapter #8 - Lab 2
 Step #5a
 
-curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user ‘student:student’ https://www.example.com
-curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user ‘student:student’ https://www.example.com/ 2>&1 | less
+curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user 'student:student' https://www.example.com
+curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user 'student:student' https://www.example.com/ 2>&1 | less
 
 
 
 Chapter #9 - Lab 1
 Step #2b
 
-tail –f /var/log/restnoded/restnoded.log
+tail -f /var/log/restnoded/restnoded.log
 
 Step #2c
 
-tail –f /var/log/restjavad.0.log
+tail -f /var/log/restjavad.0.log
 
 Step #3c
 
@@ -97,9 +97,9 @@ tmsh list mgmt shared iapp installed-packages
 
 Step #4a
 
-curl –vk https://www.bing.com/
-curl –vk --proxy 172.16.1.150:3128 https://www.example.com/
-curl –vk -L http://www.f5.com/
+curl -vk https://www.bing.com/
+curl -vk --proxy 172.16.1.150:3128 https://www.example.com/
+curl -vk -L http://www.f5.com/
 
 Step #5a
 
@@ -107,16 +107,16 @@ tail -f /var/log/apm
 tail -f /var/log/ltm
 cat /var/log/ltm | grep -i "ssl"
 egrep -i "cipher | profile" /var/log/ltm
-tail –f /var/log/restnoded/restnoded.log
-tail –f /var/log/restjavad.0.log
+tail -f /var/log/restnoded/restnoded.log
+tail -f /var/log/restjavad.0.log
 bigstart restart restnoded
 bigstart restart restjavad
 
 Step #6a
 
-tcpdump –lnni internal
-tcpdump –lnni external
-tcpdump –lnni ssloN_Proxy_in.app/ssloN_Proxy_in
+tcpdump -lnni internal
+tcpdump -lnni external
+tcpdump -lnni ssloN_Proxy_in.app/ssloN_Proxy_in
 
 
 
