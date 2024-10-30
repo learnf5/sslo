@@ -1,4 +1,4 @@
-Chapter #2 - Lab 1
+Chapter #2 Lab - Exercise 1 - Import a Signed Certificate
 Step #4b:
 
 cd /config/filestore/files_d/Common_d/certificate_d
@@ -12,8 +12,8 @@ Step #4e
 openssl x509 -in \:Common:RootCertAndKey_######_# -text -noout
 
 
-
-Chapter #4 - Lab 1
+==========
+Chapter #4 Lab - Exercise 1 - Create a Transparent Forward Proxy
 Step #1c
 
 ip route
@@ -35,62 +35,61 @@ Step #14d (option to more quickly see unencrypted traffic)
 tcpdump -nni icap_VLAN -Xs0 | grep GET
 
 
+==========
+Chapter #5 Lab - Exercise 1 - Create an Explicit Forward Proxy
+Step #12b(ii)
 
-Chapter #5 - Lab 1
-Step #13b(ii)
+curl -vk --proxy 172.16.1.150:3128 https://www.f5.com
 
-curl -vk -proxy 172.16.1.150:3128 https://www.f5.com
-
-Step #13c
+Step #12c
 
 tcpdump -nni ssloN_IPS_in.app/ssloN_IPS_in -Xs0
 
-Step #13d
+Step #12d
 
 tcpdump -nni ssloN_IPS_in.app/ssloN_IPS_in -Xs0 -w /var/tmp/ips_in.cap
 
-Step #13e
+Step #12e
 
 tcpdump -Xs0 -nr /var/tmp/ips_in.cap | grep citi.com
 
 
-
-Chapter #5 - Lab 2
-Step #3b
+==========
+Chapter #5 Lab - Exercise 2 - Stop an Inspection Service for Maintenance
+Step #2b
 
 tcpdump -nni icap_VLAN -Xs0
 tcpdump -nni ssloN_Proxy_in.app/ssloN_Proxy_in -Xs0
 
 
-
-Chapter #6 - Lab 2
-Step #10b
+==========
+Chapter #6 Lab - Exercise 2 - Create an Existing Application
+Step #9b
 
 tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in -Xs0
 
-Step #10d
+Step #9d
 
 tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in -Xs0 | grep GET
 
 
+==========
+Chapter #7 Lab - [Optional] Exercise 3 - Enable and Test TLS v1.3
+Step #2d
 
-Chapter #8 - Lab 2
-Step #5a
+TLS13-AES128-GCM-SHA256:TLS13-AES256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256
+
+
+==========
+Chapter #8 Lab - Exercise 2 - Forward Proxy Authentication
+Step #4a
 
 curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user 'student:student' https://www.example.com
 curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user 'student:student' https://www.example.com/ 2>&1 | less
 
 
-
-Chapter #9 - Lab 1
-Step #2b
-
-tail -f /var/log/restnoded/restnoded.log
-
-Step #2c
-
-tail -f /var/log/restjavad.0.log
-
+==========
+Chapter #9 Lab - Exercise 1 - Troubleshooting
 Step #3c
 
 tmsh list mgmt shared iapp installed-packages
@@ -98,29 +97,51 @@ tmsh list mgmt shared iapp installed-packages
 Step #4a
 
 curl -vk https://www.bing.com/
+
+Step #4b
+
 curl -vk --proxy 172.16.1.150:3128 https://www.example.com/
-curl -vk -L http://www.f5.com/
+
+Step #4c
+
+curl -vk -L http://www.nginx.com/
+
+Step #4d
+
+curl -vk --proxy [PROXY IP:PORT] --proxy-ntlm --proxy-user 'user:pass' [URL]
 
 Step #5a
 
 tail -f /var/log/apm
+
+Step #5b
+
 tail -f /var/log/ltm
 cat /var/log/ltm | grep -i "ssl"
 egrep -i "cipher | profile" /var/log/ltm
+
+Step #6a
+
 tail -f /var/log/restnoded/restnoded.log
+
+Step #6b
+
 tail -f /var/log/restjavad.0.log
+
+Step #6c
+bigstart status | grep rest
 bigstart restart restnoded
 bigstart restart restjavad
 
-Step #6a
+Step #7a
 
 tcpdump -lnni internal
 tcpdump -lnni external
 tcpdump -lnni ssloN_Proxy_in.app/ssloN_Proxy_in
 
 
-
-Chapter #10 - Lab 2
+==========
+Chapter #10 Lab - Exercise 2 - Create a Deployment and Synchronize HA
 Step #13a
 
 restcurl 'shared/gossip?$select=gossipPeerDevices' | grep -i framework
