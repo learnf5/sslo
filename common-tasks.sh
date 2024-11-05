@@ -33,6 +33,9 @@ sudo ip route add default via 172.16.1.33
 sleep 5
 sudo ip route del default via 172.16.17.33
 ip route show
+sudo sed --in-place 's/172.16.17.33/172.16.1.33/' /etc/netplan/01-config.yaml
+sudo netplan apply
+ip route show
 #sudo ip route change default via 172.16.1.33
 
 # disable debugging
