@@ -24,8 +24,8 @@ im-config -n xim
 
 # run this lab's specific tasks saved on GitHub
 curl --silent --output /tmp/$LAB_ID.sh https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/$LAB_ID.sh
-#bash -x /tmp/$LAB_ID.sh
-bash /tmp/$LAB_ID.sh
+bash -x /tmp/$LAB_ID.sh
+#bash /tmp/$LAB_ID.sh
 
 # common changes to jump VM
 sudo ip route add default via 172.16.1.33
