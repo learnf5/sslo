@@ -20,7 +20,6 @@ PS4='+$(date +"%T.%3N"): '
 mkdir Desktop/Lab_Files
 #sudo rm Downloads/*.crt
 curl --silent https://raw.githubusercontent.com/learnf5/sslo/main/sslo_v9.3_copy_paste.txt --output /home/student/Desktop/Copy-Paste.txt
-im-config -n xim
 
 # run this lab's specific tasks saved on GitHub
 curl --silent --output /tmp/$LAB_ID.sh https://raw.githubusercontent.com/learnf5/$COURSE_ID/main/$LAB_ID.sh
@@ -28,12 +27,7 @@ bash -x /tmp/$LAB_ID.sh
 #bash /tmp/$LAB_ID.sh
 
 # common changes to jump VM
-ip route show
-sudo sed --in-place 's/172.16.17.33/172.16.1.33/' /etc/netplan/01-config.yaml
-sudo netplan apply
-sleep 5
-ip route show
-#sudo ip route change default via 172.16.1.33
+im-config -n xim
 
 # disable debugging
 set +x
