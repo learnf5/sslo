@@ -12,9 +12,9 @@ The following table maps UCS file Loading and End-State for each SSLO Lab.
 |7.1|Identify Components|sslo1_ex_app.ucs|sslo1_id_comp.ucs|
 |7.2|Create Application Reverse Proxy|sslo1_id_comp.ucs|sslo1_in_app.ucs|
 |7.3|Enable and Test TLS v1.3|sslo1_in_app.ucs|sslo1_tls13.ucs|
-|8.1|Manage a Security Policy|sslo1_tls13.ucs|sslo1_tls13.ucs|
-|8.2|Forward Proxy Authentication|sslo1_tls13.ucs|sslo1_proxy_auth.ucs|
-|9.1|Troubleshooting|sslo1_tls13.ucs|N/A|
-|9.2|Deleting and Cleanup of Configurations|sslo1_tls13.ucs|N/A|
+|8.1|Manage a Security Policy|sslo1_in_app.ucs|sslo1_tls13.ucs|
+|8.2|Forward Proxy Authentication|sslo1_in_app.ucs|sslo1_proxy_auth.ucs|
+|9.1|Troubleshooting|sslo1_in_app.ucs|N/A|
+|9.2|Deleting and Cleanup of Configurations|sslo1_in_app.ucs|N/A|
 |10.1|Configure High Availability|sslo1_cert.ucs<br/>sslo2_cert.ucs|sslo1_ha.ucs<br/>sslo2_ha.ucs|
 |10.2|Create a Deployment and Synchronize HA|sslo1_ha.ucs<br/>sslo2_ha.ucs|sslo1_ha_L3.ucs<br/>sslo2_ha_L3.ucs|
