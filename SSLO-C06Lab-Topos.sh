@@ -17,7 +17,7 @@ sudo ssh 192.168.1.31 tmsh modify /sys url-db download-schedule urldb { status f
 sudo ssh 192.168.1.31 tmsh save /sys config
 
 # update Student Workstation
-touch /tmp/lab6.1
+touch /tmp/lab6
 
 # confirm bigip1 is active
 for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
