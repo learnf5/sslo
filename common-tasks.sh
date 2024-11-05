@@ -28,7 +28,8 @@ bash -x /tmp/$LAB_ID.sh
 #bash /tmp/$LAB_ID.sh
 
 # common changes to jump VM
-sudo ip route change default via 172.16.1.33
+sudo ip route del default via 172.16.17.33
+sudo ip route add default via 172.16.1.33
 
 # disable debugging
 set +x
