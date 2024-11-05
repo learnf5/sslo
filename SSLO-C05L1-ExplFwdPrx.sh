@@ -10,17 +10,22 @@ curl --silent https://raw.githubusercontent.com/learnf5/sslo/main/ucs/$ucs     -
 # confirm sslo1 is active
 for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
 
-#prepare sslo1
+#load sslo1 ucs file
 sudo scp /tmp/$ucs 192.168.1.31:/var/local/ucs
 sudo ssh 192.168.1.31 tmsh load sys ucs $ucs no-license
-sudo ssh 192.168.1.31 tmsh modify /sys url-db download-schedule urldb { status false }
-sudo ssh 192.168.1.31 tmsh save /sys config
-
-# update Student Workstation
-touch /tmp/lab5.1
 
 # confirm bigip1 is active
 for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
+
+#prepare sslo1 disable url-db auto-update
+sudo ssh 192.168.1.31 tmsh modify /sys url-db download-schedule urldb { status false }
+sudo ssh 192.168.1.31 tmsh save /sys config
+
+# confirm bigip1 is active
+for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
+
+# update Student Workstation
+touch /tmp/lab5.1
 
 # disable debugging
 set +x
