@@ -111,6 +111,8 @@ curl -vk -L http://www.nginx.com/
 Step #4d
 
 curl -vk --proxy [PROXY IP:PORT] --proxy-ntlm --proxy-user 'user:pass' [URL]
+Example:
+curl -vk --proxy 172.16.1.150:3128 --proxy-ntlm --proxy-user 'student:student' https://10.10.1.100
 
 Step #5b
 
