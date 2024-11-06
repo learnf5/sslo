@@ -17,9 +17,23 @@ for i in {1..30}; do [ "$(sudo ssh root@192.168.2.31 cat /var/prompt/ps1)" = "Ac
 sudo scp /tmp/$ucs1 192.168.1.31:/var/local/ucs
 sudo ssh 192.168.1.31 tmsh load sys ucs $ucs1 no-license
 
+# confirm bigip1 is active
+for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
+
+# disable url-db auto-update on sslo1
+sudo ssh 192.168.1.31 tmsh modify /sys url-db download-schedule urldb { status false }
+sudo ssh 192.168.1.31 tmsh save /sys config
+
 #prepare sslo2
 sudo scp /tmp/$ucs2 192.168.2.31:/var/local/ucs
 sudo ssh 192.168.2.31 tmsh load sys ucs $ucs2 no-license
+
+# confirm bigip2 is active
+for i in {1..30}; do [ "$(sudo ssh root@192.168.2.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
+
+# disable url-db auto-update
+sudo ssh 192.168.2.31 tmsh modify /sys url-db download-schedule urldb { status false }
+sudo ssh 192.168.2.31 tmsh save /sys config
 
 # update Student Workstation
 touch /tmp/lab10.1
