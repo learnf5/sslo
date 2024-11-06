@@ -14,9 +14,15 @@ for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Ac
 sudo scp /tmp/$ucs 192.168.1.31:/var/local/ucs
 sudo ssh 192.168.1.31 tmsh load sys ucs $ucs no-license
 
+# confirm bigip1 is active
+for i in {1..30}; do [ "$(sudo ssh root@192.168.1.31 cat /var/prompt/ps1)" = "Active" ] && break; sleep 5; done
+
+# disable url-db auto-update
+sudo ssh 192.168.1.31 tmsh modify /sys url-db download-schedule urldb { status false }
+sudo ssh 192.168.1.31 tmsh save /sys config
+
 # update Student Workstation
 touch /tmp/lab7.3
-#mkdir Desktop/Lab_Files/
 #echo "TLS13-AES128-GCM-SHA256:TLS13-AES256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256" > Desktop/Lab_Files/SSLO_cipher_rule.txt
 
 # confirm bigip1 is active
