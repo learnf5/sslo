@@ -66,11 +66,11 @@ tcpdump -nni ssloN_Proxy_in.app/ssloN_Proxy_in -Xs0
 
 ==========
 Chapter #6 Lab - Exercise 2 - Create an Existing Application
-Step #9b
+Step #10b
 
 tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in -Xs0
 
-Step #9d
+Step #10d
 
 tcpdump -nni ssloN_TAP_in.app/ssloN_TAP_in -Xs0 | grep GET
 
@@ -112,11 +112,11 @@ Step #4d
 
 curl -vk --proxy [PROXY IP:PORT] --proxy-ntlm --proxy-user 'user:pass' [URL]
 
-Step #5a
+Step #5b
 
 tail -f /var/log/apm
 
-Step #5b
+Step #5c
 
 tail -f /var/log/ltm
 cat /var/log/ltm | grep -i "ssl"
@@ -156,6 +156,6 @@ Step #13d
 
 tail -f /var/log/restjavad.0.log
 
-Step #13g
+Step #14g
 
 grep WARNING /var/log/restjavad.*.log | grep Gossip
