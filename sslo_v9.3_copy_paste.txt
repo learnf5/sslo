@@ -20,11 +20,13 @@ ip route
 
 Step #1e
 
-sudo ip route change default via 172.16.17.33
+sudo ip route del default via 172.16.17.33
+sudo ip route add default via 172.16.1.33
 
 Step #1g
 
-sudo ip route change default via 172.16.1.33
+sudo ip route del default via 172.16.1.33
+sudo ip route del default via 172.16.17.33
 
 Step #14d
 
