@@ -84,7 +84,7 @@ TLS13-AES128-GCM-SHA256:TLS13-AES256-GCM-SHA384:TLS13-CHACHA20-POLY1305-SHA256
 
 ==========
 Chapter #8 Lab - Exercise 2 - Forward Proxy Authentication
-Step #4a
+Step #5a
 
 curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user 'student:student' https://www.example.com
 curl -vk --proxy 172.16.1.150:3128 --proxy-basic --proxy-user 'student:student' https://www.example.com/ 2>&1 | less
