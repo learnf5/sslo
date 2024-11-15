@@ -36,6 +36,9 @@ Step #14d (option to more quickly see unencrypted traffic)
 
 tcpdump -nni icap_VLAN -Xs0 | grep GET
 
+Step #15
+
+https://secure.eicar.org/eicar.com
 
 ==========
 Chapter #5 Lab - Exercise 1 - Create an Explicit Forward Proxy
@@ -161,3 +164,7 @@ tail -f /var/log/restjavad.0.log
 Step #14g
 
 grep WARNING /var/log/restjavad.*.log | grep Gossip
+
+Step #15 - test ICAP scanning
+
+https://secure.eicar.org/eicar.com
